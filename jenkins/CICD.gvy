@@ -6,14 +6,14 @@ pipeline {
                 // step1 
                 echo 'compiling..'
 		            git url: 'https://github.com/manjusoppy/samplejavaapp'
-		            sh script: '/opt/maven/bin/mvn compile'
+		            sh script: 'mvn compile'
            }
         }
         stage('codereview-pmd') {
 	         steps {
                 // step2
                 echo 'codereview..'
-		            sh script: '/opt/maven/bin/mvn -P metrics pmd:pmd'
+		            sh script: 'mvn -P metrics pmd:pmd'
            }
 	         post {
                success {
@@ -25,7 +25,7 @@ pipeline {
 	          steps {
                 // step3
                 echo 'unittest..'
-	               sh script: '/opt/maven/bin/mvn test'
+	               sh script: 'mvn test'
             }
 	          post {
                success {
@@ -36,7 +36,7 @@ pipeline {
         stage('codecoverage') {
 	   steps {
                 echo 'unittest..'
-	        sh script: '/opt/maven/bin/mvn verify'
+	        sh script: 'mvn verify'
                  }
 	   post {
                success {
@@ -48,7 +48,7 @@ pipeline {
 	         steps {
                 // step5
                 echo 'package......'
-		            sh script: '/opt/maven/bin/mvn package'	
+		            sh script: 'mvn package'	
            }		
         }
         stage('build & push docker image') {
